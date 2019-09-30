@@ -1,34 +1,20 @@
 import React from 'react';
 import UserCreate from './UserCreate';
-import LanguageContext from '../contexts/LanguageContext';
+//LanguageStore is a named export, not default
+import { LanguageStore } from '../contexts/LanguageContext';
 import ColorContext from '../contexts/ColorContext';
+import LanguageSelector from './LanguageSelector';
 
 class App extends React.Component {
-    //set default language to english
-    state = {
-        language: 'english'
-    };
-
-    //remember to make an arrow function because it's used as a callback function
-    onLanguageChange = (language) => {
-        this.setState({
-            language
-        });
-    };
-
     render(){
         return(
             <div className="ui container" >
-                <div>
-                    Select a language: 
-                    <i className="flag us" onClick={() => this.onLanguageChange('english')} />
-                    <i className="flag nl" onClick={() => this.onLanguageChange('dutch')} />
-                </div>    
-                <ColorContext.Provider value="red">
-                    <LanguageContext.Provider value={this.state.language} >
+                <LanguageStore>
+                    <LanguageSelector />
+                    <ColorContext.Provider value="red">
                         <UserCreate />
-                    </LanguageContext.Provider>
-                </ColorContext.Provider>
+                    </ColorContext.Provider>
+                </LanguageStore>
             </div>
         );
     }

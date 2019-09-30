@@ -6,15 +6,16 @@ class Button extends React.Component{
     //refactor to use Consumer instead of context, so no need for contextType
     //child of Consumer is a function that will be invoked
 
-    renderSubmit(value){
-        return value === 'english' ? 'Submit' : 'Voorleggen';
+    renderSubmit(language){
+        return language === 'english' ? 'Submit' : 'Voorleggen';
     }
 
     renderButton(color){
+        //remember, LanguageStore holds state as object with language in it, so we pass this
         return(
             <button className={`ui button ${color}`}>
                 <LanguageContext.Consumer>
-                    {(value) => this.renderSubmit(value) }
+                    { ({language}) => this.renderSubmit(language) }
                 </LanguageContext.Consumer>
             </button>
         );
